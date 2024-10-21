@@ -1,11 +1,3 @@
-/* TO DO
-Order properly by Date
-
-/* Sort the dates 
-   const returnDates = Object.fromEntries(
-   Object.entries(sortable).sort(([,a],[,b]) => a-b)
-   ); */
-
 Module.register("MMM-MyAvalex", {
 
   defaults: {
