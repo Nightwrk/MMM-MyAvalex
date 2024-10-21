@@ -1,15 +1,18 @@
 /* TO DO
-Set Interval Properly
 Order properly by Date
 
-*/
+/* Sort the dates 
+   const returnDates = Object.fromEntries(
+   Object.entries(sortable).sort(([,a],[,b]) => a-b)
+   ); */
 
 Module.register("MMM-MyAvalex", {
 
   defaults: {
     title: "My Avalex",
     exampleContent: "",
-    dateFormat: "MMM Do"
+    dateFormat: "MMM Do",
+    updateInterval:  6 * 60 * 60 * 1000, // Defaults to 4  hours = 4 * 60 * 60 * 1000
   },
 
   getHeader() {
@@ -35,9 +38,28 @@ Module.register("MMM-MyAvalex", {
     this.templateContent = this.config.exampleContent
     this.loaded = false;
     this.trashInfo = "";
-    
-    // set timeout for next random text
-    setInterval(() => this.getTrashDates(), 6000)
+    this.getTrashDates();
+    this.scheduleUpdate();
+    Log.info(`[MyAvalex] Update scheduled in ${this.config.updateInterval}`)
+
+  },
+
+  // Schedule the update interval and update
+  scheduleUpdate(delay) {
+    let nextLoad = this.config.updateInterval;
+    if (typeof delay !== "undefined" && delay >= 0) {
+      nextLoad = delay;
+    }
+
+    const self = this;
+    setInterval(() => {
+      self.getTrashDates();
+    }, nextLoad);
+  },
+
+  
+  getTrashDates() {
+    this.sendSocketNotification("GET_TRASH_INFO")
   },
 
   /**
@@ -50,11 +72,6 @@ Module.register("MMM-MyAvalex", {
   socketNotificationReceived: function (notification, payload) {
     if (notification === "EXAMPLE_NOTIFICATION") {
 
-     /* Sort the dates 
-        const returnDates = Object.fromEntries(
-          Object.entries(sortable).sort(([,a],[,b]) => a-b)
-        ); */
-
       this.loaded = true;
       this.trashInfo = payload;
       this.updateDom()
@@ -65,13 +82,14 @@ Module.register("MMM-MyAvalex", {
    * Render the page we're on.
    */
   getDom() {
+    
     const wrapper = document.createElement("div")
         
     if (this.loaded === false) {
       wrapper.innerHTML = this.translate("Loading...");
       wrapper.className = "dimmed light small";
       return wrapper;
-    } else {
+    } else { 
       wrapper.className = "bindates";
 
       const today = moment().startOf("day");
@@ -88,9 +106,7 @@ Module.register("MMM-MyAvalex", {
         imageCell.appendChild(myImage);
         dateRow.appendChild(imageCell);
        
-        const dateCell = document.createElement("td");
-                  
-        //const pickupDate = moment(detail["pickupDates"][0]).format(this.config.dateFormat);
+        const dateCell = document.createElement("td");   
         const pickupDate = moment(detail["pickupDates"][0]);
 
        if (today.isSame(pickupDate)) {
@@ -105,23 +121,12 @@ Module.register("MMM-MyAvalex", {
         }
         dateRow.appendChild(dateCell);
         dateTable.appendChild(dateRow);
-        //wrapper.appendChild(imageContainter);
-
-        //console.log(`Trash: ${detail["_pickupTypeText"]} - first date ${detail["pickupDates"][0]}`);
-        //const pickupDate = dayjs(detail["pickupDates"][0]).format("MMM Do");
-        
-        //const pickupDate = "hdfghdas";
-        //this.templateContent = `Trash: ${detail["_pickupTypeText"]} - first date ${pickupDate}`
-      }
-      //wrapper.innerHTML = `${this.templateContent}`
+    }
+      
       wrapper.appendChild(dateTable);
       return wrapper
     }
  
-  },
-
-  getTrashDates() {
-    this.sendSocketNotification("GET_TRASH_INFO")
   },
 
   /**
