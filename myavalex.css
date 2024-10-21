@@ -1,0 +1,44 @@
+.MMM-MyAvalex div {
+    display: block;
+}
+
+.bindates {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.bin-date {
+    font-size: var(--font-size-small);
+    line-height: 1.25;
+    font-weight: 300;
+    vertical-align: middle;
+    padding-bottom: 100;
+    text-align: right;
+  }
+ 
+  img {
+    width: 25px;
+    height: 25px;
+   }
+
+   .today {
+    color: yellow;
+    font-weight: bold;
+    font-size: var(--font-size-small);
+    line-height: 1.25;
+    font-weight: 300;
+    vertical-align: middle;
+    padding-bottom: 100;
+    text-align: right;
+   }
+   .tomorrow {
+    color: yellow;
+    font-weight: bold;
+    font-size: var(--font-size-small);
+    line-height: 1.25;
+    font-weight: 300;
+    vertical-align: middle;
+    padding-bottom: 100;
+    text-align: right;
+   }

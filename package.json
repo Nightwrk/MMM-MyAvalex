@@ -1,0 +1,30 @@
+{
+  "name": "mmm-myavalex",
+  "version": "1.0.0",
+  "description": "Magic Mirror module to obtain garbage collection days from Avalex (ximmio API)",
+  "main": "MMM-MyAvalex.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nightwrk/MMM-MyAvalex.git"
+  },
+  "keywords": [
+    "Magic",
+    "Mirror",
+    "Avalex",
+    "Ximmio",
+    "Garbage",
+    "collection",
+    "days",
+    "module",
+    "MMM"
+  ],
+  "author": "Jeroen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nightwrk/MMM-MyAvalex/issues"
+  },
+  "homepage": "https://github.com/Nightwrk/MMM-MyAvalex#readme"
+}
