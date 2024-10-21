@@ -1,2 +1,2 @@
 # MMM-MyAvalex
-Magic Mirror module to display garbage collection days from Avalex (Ximmio API)
+MagicMirror² module to display garbage collection days from Avalex based on Ximmio API.
